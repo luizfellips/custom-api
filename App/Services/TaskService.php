@@ -22,7 +22,7 @@ class TaskService
 
     public function put($id){
         parse_str(file_get_contents("php://input"), $_PUT);
-        return Task::updateTask($id,$_PUT);
+        return Task::update($id,$_PUT);
     }
 
     public function delete($id){

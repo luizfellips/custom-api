@@ -20,12 +20,14 @@ class BookService
         return Book::insert($_POST);
     }
 
-    public function put($id){
+    public function put($id)
+    {
         parse_str(file_get_contents("php://input"), $_PUT);
-        return Book::updateBook($id,$_PUT);
+        return Book::update($id, $_PUT);
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         return Book::delete($id);
     }
 }
