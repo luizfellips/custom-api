@@ -3,11 +3,13 @@
 namespace App;
 
 class API{
+    //properties
     private $url;
     private $service;
     private $method;
     private $id = null;
     
+    //constructor
     public function __construct($url)
     {
         $this->url = explode('/', $url);
@@ -19,6 +21,7 @@ class API{
         }
     }
 
+    //executes api
     public function execute(){
         if(!$this->service || !$this->method){
             http_response_code(404);
