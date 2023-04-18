@@ -2,30 +2,30 @@
 
 namespace App\Services;
 
-use App\Models\Book;
+use App\Models\User;
 
-class BookService
+class UserService
 {
     public function get($id = null)
     {
         if ($id) {
-            return Book::select($id);
+            return User::select($id);
         } else {
-            return Book::selectAll();
+            return User::selectAll();
         }
     }
 
     public function post()
     {
-        return Book::insert($_POST);
+        return User::insert($_POST);
     }
 
     public function put($id){
         parse_str(file_get_contents("php://input"), $_PUT);
-        return Book::updateBook($id,$_PUT);
+        return User::updateUser($id,$_PUT);
     }
 
     public function delete($id){
-        return Book::delete($id);
+        return User::delete($id);
     }
 }

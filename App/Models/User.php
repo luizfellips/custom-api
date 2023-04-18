@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-class Book
+class User
 {
-    private static $table = "book";
+    private static $table = "user";
 
     public static function select(int $id)
     {
@@ -17,7 +17,7 @@ class Book
         if ($stmt->rowCount() > 0) {
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         } else {
-            throw new \Exception("No book found.");
+            throw new \Exception("No user found.");
         }
     }
 
@@ -30,7 +30,7 @@ class Book
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } else {
-            throw new \Exception("No book found.");
+            throw new \Exception("No users found.");
         }
     }
 
@@ -41,30 +41,32 @@ class Book
         $connection = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
         $query = 'INSERT INTO '.self::$table.' (' . implode(',',$column_fields) . ') VALUES (' . implode(',',$bindings) . ')';
         $stmt = $connection->prepare($query);
+        $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
         $stmt->execute(array_values($data));
 
         if ($stmt->rowCount() > 0){
-            return 'Book successfully registered!';
+            return 'user successfully registered!';
         }
         else{
-            throw new \Exception("Failed to register the book!");
+            throw new \Exception("Failed to register the user!");
         }
     }
 
-    public static function updateBook(int $id, array $data){
+    public static function updateUser(int $id, array $data){
         $fields = array_keys($data);
         $connection = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
         $query = 'UPDATE '.self::$table.' SET '.implode('=?,',$fields).'=? WHERE id = ?';
+        $data['password'] = password_hash($data['password'],PASSWORD_DEFAULT);
         $stmt = $connection->prepare($query);
         array_push($data,$id);
         $stmt->execute(array_values($data));
 
         if($stmt->rowCount() > 0){
-            return 'Book updated successfully!';
+            return 'user updated successfully!';
 
             
         } else{
-            throw new \Exception("Failed to update book!");
+            throw new \Exception("Failed to update user!");
         }
     }
 
@@ -78,10 +80,10 @@ class Book
         $stmt->execute();
 
         if($stmt->rowCount() > 0){
-            return 'Book deleted succesfully!';
+            return 'user deleted succesfully!';
             
         } else{
-            throw new \Exception("Failed to delete book!");
+            throw new \Exception("Failed to delete user!");
         }
     }
 }

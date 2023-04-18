@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-class Book
+class Task
 {
-    private static $table = "book";
+    private static $table = "task";
 
     public static function select(int $id)
     {
@@ -17,7 +17,7 @@ class Book
         if ($stmt->rowCount() > 0) {
             return $stmt->fetch(\PDO::FETCH_ASSOC);
         } else {
-            throw new \Exception("No book found.");
+            throw new \Exception("No task found.");
         }
     }
 
@@ -30,7 +30,7 @@ class Book
         if ($stmt->rowCount() > 0) {
             return $stmt->fetchAll(\PDO::FETCH_ASSOC);
         } else {
-            throw new \Exception("No book found.");
+            throw new \Exception("No tasks found.");
         }
     }
 
@@ -44,14 +44,14 @@ class Book
         $stmt->execute(array_values($data));
 
         if ($stmt->rowCount() > 0){
-            return 'Book successfully registered!';
+            return 'task successfully registered!';
         }
         else{
-            throw new \Exception("Failed to register the book!");
+            throw new \Exception("Failed to register the task!");
         }
     }
 
-    public static function updateBook(int $id, array $data){
+    public static function updateTask(int $id, array $data){
         $fields = array_keys($data);
         $connection = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
         $query = 'UPDATE '.self::$table.' SET '.implode('=?,',$fields).'=? WHERE id = ?';
@@ -60,11 +60,11 @@ class Book
         $stmt->execute(array_values($data));
 
         if($stmt->rowCount() > 0){
-            return 'Book updated successfully!';
+            return 'task updated successfully!';
 
             
         } else{
-            throw new \Exception("Failed to update book!");
+            throw new \Exception("Failed to update task!");
         }
     }
 
@@ -78,10 +78,10 @@ class Book
         $stmt->execute();
 
         if($stmt->rowCount() > 0){
-            return 'Book deleted succesfully!';
+            return 'task deleted succesfully!';
             
         } else{
-            throw new \Exception("Failed to delete book!");
+            throw new \Exception("Failed to delete task!");
         }
     }
 }
