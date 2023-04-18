@@ -22,7 +22,7 @@ class UserService
 
     public function put($id){
         parse_str(file_get_contents("php://input"), $_PUT);
-        return User::updateUser($id,$_PUT);
+        return User::update($id,$_PUT);
     }
 
     public function delete($id){
