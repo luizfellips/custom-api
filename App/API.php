@@ -10,7 +10,7 @@ class API
     {
         $this->url = explode('/', $url);
     }
-
+//conflict 2
     public function execute()
     {
         if (!strtolower($_SERVER['REQUEST_METHOD']) || !('App\Services\\' . ucfirst($this->url[1] . 'Service'))) {
