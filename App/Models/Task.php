@@ -4,8 +4,13 @@ namespace App\Models;
 
 class Task
 {
-    private static $table = "task";
+    private static string $table = "task"; // table to be accessed
 
+
+    /**
+     * this function will return a single entity from the database based on id, if it exists.
+     * if it does not exist, throw exception
+     */
     public static function select(int $id)
     {
         $connection = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
@@ -20,7 +25,10 @@ class Task
             throw new \Exception("No task found.");
         }
     }
-
+/**
+     * this function will return all entities from the database.
+     * if there are no records, throw exception
+     */
     public static function selectAll()
     {
         $connection = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
@@ -33,7 +41,11 @@ class Task
             throw new \Exception("No tasks found.");
         }
     }
-
+/**
+     * this function will insert a new entity into the database, receives an array as parameter
+     * returns successfull string statement
+     * throws exception if an error occurs.
+     */
     public static function insert(array $data)
     {
         $column_fields = array_keys($data);
@@ -50,7 +62,11 @@ class Task
             throw new \Exception("Failed to register the task!");
         }
     }
-
+/**
+     * this function will update an entity in the database, receives an int and an array as parameters.
+     * returns successfull string statement
+     * throws exception if an error occurs.
+     */
     public static function updateTask(int $id, array $data){
         $fields = array_keys($data);
         $connection = new \PDO(DBDRIVE . ': host=' . DBHOST . '; dbname=' . DBNAME, DBUSER, DBPASS);
@@ -67,7 +83,11 @@ class Task
             throw new \Exception("Failed to update task!");
         }
     }
-
+/**
+     * this function will delete an entity from the database, receives an int as parameter.
+     * returns successfull string statement
+     * throws exception if an error occurs.
+     */
     public static function delete(int $id){
         $connPdo = new \PDO(DBDRIVE.': host='.DBHOST.'; dbname='.DBNAME,DBUSER,DBPASS);
 
