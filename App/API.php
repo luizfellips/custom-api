@@ -3,9 +3,10 @@
 namespace App;
 
 class API{
+    private $url;
     private $service;
     private $method;
-    private $url;
+    private $id = null;
 
     public function __construct($url)
     {
@@ -13,7 +14,7 @@ class API{
         if($this->url[0] === 'api'){
             array_shift($this->url);
             $this->service = 'App\Services\\' . ucfirst($this->url[0] . 'Service');
-            array_shift($this->url);
+            $this->id = $this->url[1];
             $this->method = strtolower($_SERVER['REQUEST_METHOD']);
         }
     }
@@ -25,7 +26,7 @@ class API{
             exit;
         }
         try {
-            $response = call_user_func_array(array(new $this->service, $this->method), $this->url);
+            $response = call_user_func_array(array(new $this->service, $this->method), array($this->id));
             http_response_code(200);
             echo json_encode(array('status' => 'success', 'data' => $response));
             exit;
