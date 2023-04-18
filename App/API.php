@@ -7,7 +7,7 @@ class API{
     private $service;
     private $method;
     private $id = null;
-
+//conflict 1
     public function __construct($url)
     {
         $this->url = explode('/', $url);
